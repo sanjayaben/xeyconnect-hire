@@ -1,0 +1,54 @@
+I want to develop a prototype for a workflow based recruitment management system named xeyconnect-hire
+
+Setups
+======
+There will be few master data setups. There should be simple setup UIs for these
+1. Users - firstname, lastname, username, password, designation
+2. Interview Panel - collection of one or more users with a panel name and a description
+3. Interview Panel Availability - date and timeslots (1 hour) where the panels will be available. Ideally this is a calendar view
+
+
+Hiring Campaign Setup
+=====================
+When a specific job role needs to be filled, we start what we call a hiring campaign. There should be a UI to set up campaigns
+A hiring campaign would consist of following information
+- name
+- description
+- A job description (An online word doc or an attachment)
+- No of positions 
+- Status (Active, Inactive)
+
+Profile Review
+==============
+When someone applies for the position those applications should end up on a area called repository. The repository should be segmented by the campaign. Only active campaigns should show up by default but user can selectively view inactive ones too. Clicking on the campaign should list the received profiles. Clicking on the profile should show the applicant name. Applied date and resume. Preferably the resume should have a preview on the UI. The reviewer would look at it and hit a shortlist/reject buttons
+
+Hiring Workflows
+================
+for every shortlisted candidate a hiring workflow should trigger. These workflows should appear in an area called activities. Activity should show
+- Campaign name
+- Candidate name
+- stage the workflow is in
+- date where the next activity is due
+User should be able to double click an activity and take actions related to the stage it is in. Also it should be able to record current salary, expected salary, notice period and remarks
+Activities should be grouped by the date 
+
+A hiring campaign has the following stages
+1. First Interview Schedule and Panel Assignment - stage could be called "Interview 1 - Set up". In this stage user would see the applicant details, campaign name and option to assign panel and dates. User would be able to select the panel from a list of preset panels and select. Once panel is selected it should show available time slots for the panel and user would be able to select a time slot. Alternatively user should be able to just add users or select time from a calendar view. Also add a meeting link
+2. The next stage is Interview 1 - user should be able to see the JD and the applicant CV (preview) and the date time and the meeting link. After the interview user would add some remarks and click either Select or Reject. If Reject is clicked, process stops there
+3. Next stage is "Technical Test - Set up" - In the UI it will show the campaign name, candidate name, CV and JD. User will add a test paper as an attachment and click schedule. The stage will now change to "Technical Test - Scheduled". In the same UI User will be able to upload the answer sheet and assign users for review. Then reviewer would be able to come to the screen, look at the answers and either Select/Reject. If Reject is clicked, process stops there
+4. Final stage is called "Onboarding" - here it will show a log of previous stages, results and completed dates. There will be checkboxes to tick, background checks done, offer letter released. Press Complete button to finish
+
+general remarks about the stage
+all stages should have an option to preview the JD and the CV
+all stages should have an option to reject. the process stops there
+when one stage has a positive response it should go to the next stage
+
+Note - ignore the requirements for role based access control during implementation
+
+Apply Option
+============
+Implement an Apply Now Option. During applying user will see a list of campaigns and select the one they want to apply. They will put their name, email and upload the CV
+
+Technology
+==========
+Use the MERN stack for the implementation. Dockerize all services

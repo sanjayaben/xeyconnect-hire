@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: xeyconnect-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: xeyconnect_hire
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - xeyconnect-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: xeyconnect-backend
+    restart: unless-stopped
+    ports:
+      - "5001:5000"
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://admin:password123@mongodb:27017/xeyconnect_hire?authSource=admin
+      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+    depends_on:
+      - mongodb
+    networks:
+      - xeyconnect-network
+    volumes:
+      - ./uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: xeyconnect-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - xeyconnect-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  xeyconnect-network:
+    driver: bridge

@@ -1,0 +1,36 @@
+# Render deployment configuration
+version: "1"
+services:
+  - type: web
+    name: xeyconnect-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: xeyconnect-mongo
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+
+  - type: web
+    name: xeyconnect-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://xeyconnect-backend.onrender.com/api
+
+databases:
+  - name: xeyconnect-mongo
+    databaseName: xeyconnect-hire
+    user: xeyconnect
+    plan: free

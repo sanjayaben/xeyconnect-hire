@@ -1,0 +1,33 @@
+{
+  "name": "xeyconnect-hire",
+  "version": "1.0.0",
+  "description": "Workflow based recruitment management system",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "postinstall": "cd backend && npm install",
+    "docker-build": "docker-compose build",
+    "docker-up": "docker-compose up",
+    "docker-down": "docker-compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "recruitment",
+    "hr",
+    "workflow",
+    "mern"
+  ],
+  "author": "",
+  "license": "MIT"
+}
