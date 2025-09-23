@@ -93,6 +93,10 @@ router.get('/', auth, async (req, res) => {
 
     // Group by campaign
     const groupedApplications = applications.reduce((acc, app) => {
+      if (!app.campaign || !app.campaign._id) {
+        // Optionally log or skip applications with missing campaign
+        return acc;
+      }
       const campaignId = app.campaign._id.toString();
       if (!acc[campaignId]) {
         acc[campaignId] = {
